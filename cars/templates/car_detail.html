@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .car-card {
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .car-card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .car-card img {
+        width: 100%;
+        height: auto;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .car-info {
+        padding: 20px;
+    }
+
+    .car-card h2 {
+        font-size: 1.75rem;
+        color: #343a40;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .car-card p {
+        font-size: 1rem;
+        color: #495057;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .car-card p strong {
+        color: #212529;
+    }
+
+    .no-photo {
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    .buttons-container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .btn {
+        display: inline-block;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 12px 24px;
+        font-size: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-transform: uppercase;
+        text-align: center;
+        min-width: 100px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+        background-color: #b02a37;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    @media (max-width: 576px) {
+        .car-card {
+            padding: 15px;
+            max-width: 90%;
+        }
+
+        .buttons-container {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="car-card">
+    {% if car.photo %}
+    <img src="{{ object.photo.url }}" alt="{{ object.model }} - {{ object.brand }}"> <!--imagem do carro-->
+    {% else %}
+    <p class="no-photo">Foto não disponível</p>
+    {% endif %}
+    <div class="car-info">
+        <h2>{{ object.brand }} {{ object.model }}</h2> <!--marca e modelo do carro-->
+        <p><strong>Ano de fabricação:</strong> {{ object.factory_year }}</p>
+        <p><strong>Ano do modelo:</strong> {{ object.model_year }}</p>
+        <p><strong>Placa:</strong> {{ object.plate }}</p>
+        <p><strong>Preço:</strong> R$ {{ object.value }}</p>
+        {% if object.bio %}
+        <p><strong>Bio:</strong> {{ object.bio }}</p> <!--descrição do carro-->
+        {% endif %}
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+<div class="buttons-container">
+    <a href="{% url 'car_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
+    <a href="{% url 'car_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
+</div>
+{% endif %}
+{% endblock %}

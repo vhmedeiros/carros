@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    form {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-size: 1rem;
+        color: #343a40;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+        text-align: center;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .errorlist {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+</style>
+
+<form method="post">
+    {% csrf_token %}<!-- todo form que o usuário está enviando dados para a aplicação, usar sempre o csrf token-->
+
+    <div class="form-group">
+        {{ user_form.username.errors }} <!-- aqui são as validações do login -->
+        <label>Usuário:</label>
+        {{ user_form.username }} <!-- estamos acessando de user_form (views) apenas o campo de username -->
+    </div>
+
+    <div class="form-group">
+        {{ user_form.password1.errors }}
+        <label>Senha:</label>
+        {{ user_form.password1 }}
+    </div>
+
+    <div class="form-group">
+        {{ user_form.password2.errors }}
+        <label>Confirmação de Senha:</label>
+        {{ user_form.password2 }}
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Cadastrar">
+    </div>
+
+</form>
+{% endblock %}

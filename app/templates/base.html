@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Página Base{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0096c7;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            background-color: #0096c7;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-left,
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-left ul,
+        .nav-right ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-left ul li,
+        .nav-right ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #32bbe8;
+        }
+
+        nav ul li.active a {
+            background-color: #666;
+        }
+
+        nav ul li.active a:hover {
+            background-color: #999;
+        }
+
+        main {
+            padding: 20px;
+            min-height: calc(100vh - 180px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-left ul,
+            .nav-right ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+
+            .nav-left ul li,
+            .nav-right ul li {
+                margin: 5px 0;
+            }
+
+            nav ul li a {
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li>Olá, {{ user.username }}</li>
+                    <li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
+                    {% endif %}
+
+                    {% if not user.is_authenticated %}
+                    <li><a href="{% url 'register' %}">Cadastre-se</a></li>
+                    <li><a href="{% url 'login' %}">Entrar</a></li>
+                    {% endif %}
+
+                    <li><a href="{% url 'cars_list' %}">Carros</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Sair</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Victor Medeiros. Todos os direitos reservados.</p>
+    </footer>
+</body>
+
+</html>

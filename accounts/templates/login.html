@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    form {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+        font-size: 1rem;
+        color: #495057;
+    }
+
+    th {
+        font-weight: bold;
+        color: #212529;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        width: 100%;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        align-self: center;
+        margin-top: 10px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<form method="post">
+    {% csrf_token %}
+    <table>
+        {{ login_form.as_table }} <!-- Renderiza o formulário de login em formato de tabela -->
+    </table>
+    <input type="submit" value="Entrar"> <!-- Botão de login -->
+</form>
+{% endblock %}

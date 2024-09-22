@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .card {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        font-size: 1.75rem;
+        color: #343a40;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .card-body {
+        text-align: center;
+        font-size: 1rem;
+        color: #495057;
+    }
+
+    .buttons-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .btn {
+        display: inline-block;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        min-width: 150px;
+        text-align: center;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .error-message {
+        color: #d9534f;
+        font-size: 14px;
+        margin-top: 5px;
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Deletar Carro</h1>
+    </div>
+    <div class="card-body">
+        <p>Tem certeza que deseja deletar o carro <strong>{{ object.brand }} {{ object.model }}</strong>?</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="buttons-container">
+                <button type="submit" class="btn btn-danger">Deletar Carro</button>
+                <a href="{% url 'car_update' pk=object.pk %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
